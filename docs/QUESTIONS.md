@@ -1,0 +1,12 @@
+# Open questions
+
+These questions are recorded from the Phase 0 source audit. No production service was contacted.
+
+1. **Existing quotes on Render:** Should existing quotes, agents, service catalog data, approvals, payments, and retainer collections be migrated from the live Render database, or should the rebuilt quotes platform start with fresh data? No database export is present in `legacy/`. If starting fresh, should the initial service catalog come from the local `seed.py` defaults or a current catalog export?
+2. **CMS source completeness and block mapping:** The SQL file has only table definitions; the five non-empty site pages have no `data-cms*` attributes and do not load `assets/cms.js`; `seed-content.json` is absent. Is this supplied site snapshot authoritative, or is there another sanitized source/data export containing the current Visual Editor keys and saved block rows? If there are no saved overrides, please confirm so the Phase 0 mapping can be recorded as empty. The target uses `home.*`, while the legacy editor uses `index.*`; the documented `index` → `home` prefix mapping should be confirmed against actual block keys.
+3. **Portfolio data and uploads:** The SQL export omits the portfolio tables `portfolio_items`, `contact_boxes`, `service_items`, and `social_items`; `uploads/` contains only `.htaccess`. Are the PHP seed defaults the complete portfolio content to preserve, or will a separate data/media export be provided before migration?
+4. **Empty linked pages:** The home navigation links to zero-byte `international.html` and `formation.html`, while the agreed public-page list contains five pages. Should the visible links remain, and what route behavior should they have in the rebuild?
+5. **SQL schema-only exclusion wording:** The SQL contains `CREATE TABLE` definitions for `admins` and `rate_hits`, but no row data. Does “no admins” mean no admin records (as observed), with these schema definitions simply ignored during migration?
+6. **Zimbra email signature:** The site archive contains `logo-email.png` but no signature HTML. Please provide the HTML if it must be preserved in `docs/email-signature/`, or confirm that the image is the only available artifact.
+7. **Portfolio language behavior:** The portfolio has no language toggle and mixes English navigation with French section text. Should the rebuild preserve that exact behavior/copy, or is there an existing EN/FR portfolio variant missing from this archive?
+
